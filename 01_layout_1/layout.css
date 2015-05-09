@@ -1,0 +1,31 @@
+header{
+  background: yellow;
+  padding: 2em 1%; 
+}
+
+nav {
+  width: 18%;
+  background: cyan;
+  float: left;
+  padding: 2em 1%; 
+}
+
+section#content {
+  width: 58%;
+  background: green;
+  float: left;
+  padding: 2em 1%; 
+}
+
+aside {
+  width: 18%;
+  background: blue;
+  float: left;
+  padding: 2em 1%; 
+}
+
+footer {
+  clear: left;
+  background: yellow;
+  padding: 2em 1%; 
+}

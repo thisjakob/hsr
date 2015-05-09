@@ -1,4 +1,4 @@
 # Aufgabe 1 - Layout nachbauen
-Ansatz 1: mit floating DIVs
-Ansatz 2: Flexbox
+- Ansatz 1: Float
+- Ansatz 2: Flexbox
 
