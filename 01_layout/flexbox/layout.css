@@ -1,0 +1,33 @@
+header {
+  padding: 2em;
+  background: red;
+}
+
+section {
+  display: flex;
+}
+
+nav {
+  background: cyan;
+  padding: 2em;
+  flex: 1;
+  min-width: 150px;
+}
+
+main {
+  background: green;
+  padding: 2em;
+  flex: 15;
+}
+
+aside {
+  background: blue;
+  padding: 2em;
+  flex: 1;
+  min-width: 150px;
+}
+
+footer {
+  background: yellow;
+  padding: 2em; 
+}

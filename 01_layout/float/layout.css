@@ -10,7 +10,7 @@ nav {
   padding: 2em 1%; 
 }
 
-section#content {
+main {
   width: 58%;
   background: green;
   float: left;
