@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>HTML Parsing Demo</title>
+    <script>
+        var outTxt;
+        outTxt = document.getElementById("p1").nextSibling.textContent; // -> ________________
+        console.log(outTxt);
+        //outText = document.getElementById("p1").______________________________ // -> Text2.2
+
+        //
+        //outTxt = document.getElementById("p1").nextElementSibling.firstElementChild.textContent;
+        //
+        console.log(outTxt);
+    </script>
+</head>
+<body>
+    <p id="p1">Text1.1<em>Text1.2</em>Text1.3</p>
+    <p>Text2.1<em>Text2.2</em>Text2.3</p>
+</body>
+</html>

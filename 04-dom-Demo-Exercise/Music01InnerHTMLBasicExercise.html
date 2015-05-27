@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music list with InnerHTML </title>
+</head>
+<body>
+<h1>Songs</h1>
+<ul id="songs"></ul>
+<script>
+    var songs = [
+        {"title":"Thank you for the music", "artist":"ABBA"},
+        {"title":"California Girls", "artist":"Beach Boys"},
+        {"title":"How Deep Is Your Love", "artist":"Bee Gees"},
+        {"title":"Sweet Sixteen", "artist":"Chuck Berry"},
+        {"title":"Roll Over Beethoven", "artist":"Electric Light Orchestra"},
+        {"title":"Booze and Blues", "artist":"Ma Rainey"},
+        {"title":"Beds Are Burning", "artist":"Diesel and Dust"}
+    ];
+    function createSongsHtml (songs) {
+        var htmlString ="";
+        songs.forEach(function (song) {
+            /*
+            TODO create html string with a li element for each song with an h3 for title and p for artist
+            htmlString += ...;
+            htmlString += ...;
+            ...
+            */
+        });
+        return htmlString;
+    }
+    // TODO: wait for window load, then add the generated html to the ul (songs) element using the innerHTML property
+</script>
+</body>
+</html>

@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DOM Events Demo</title>
+    <script>
+        glasspane = false; // globalVar for console manipulation in demo
+        function buttonClickListener1 () {
+            console.log('(buttonClickListener1) clicked button '+this.name);
+        }
+        function buttonClickListener2 (clickTarget) {
+            console.log('(buttonClickListener2) clicked button '+clickTarget.name);
+        }
+        window.onload = function () {
+            function buttonClickListener () {
+                console.log('(buttonClickListener) clicked button '+this.name);
+            }
+            var button4 = document.querySelector("#button4");
+            button4.onclick = buttonClickListener; //only a single listener possible
+            function buttonClickListenerE (event) {
+                //Event interface is differnt with IE8 or older
+                console.log('(buttonClickListener E) clicked button '+ event.target.name);
+                event.stopPropagation();
+            }
+            var button5 = document.querySelector("#button5");
+            button5.addEventListener("click", buttonClickListenerE);
+            var buttonsArray = document.querySelectorAll("button");
+            for (var i=0; i < buttonsArray.length-1; i++) {
+                //does not work with IE8 or older
+                buttonsArray[i].addEventListener("click", buttonClickListenerE);
+            }
+            // event bubbling
+            function bodyBubblingListener (event) {
+                console.log('(bodyBubblingListener) clicked body this = '+this+" event target ="+event.target.name);
+            }
+            document.body.addEventListener("click", bodyBubblingListener);
+            // event capturing
+            function bodyClickCaptureListener (event) {
+                console.log('(bodyClickCaptureListener) captured clicked body this = '+this+" event target ="+event.target.name+ "(glasspane = "+glasspane);
+                if (glasspane) {
+                    event.stopPropagation();
+                }
+            }
+            document.body.addEventListener("click", bodyClickCaptureListener, true);
+        }
+    </script>
+</head>
+<body>
+    <button name="button1InlineCode" onclick="console.log('clicked button '+this.name + ' event='+ event)">button1InlineCode</button>
+    <button name="button2Inline-fn()" onclick="buttonClickListener1()">button2Inline-fn()</button>
+    <button name="button3Inline-fn(this)" onclick="buttonClickListener2(this)">button3Inline-fn(this)</button>
+    <button id="button4" name="button4">button4 code onclick=fn(){..}</button>
+    <button id="button5" name="button5">button5 code addEventListener(fn) 2x</button>
+    <button name="button6">button6 covered by bubbling</button>
+
+</body>
+</html>

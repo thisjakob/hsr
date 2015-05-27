@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music list with Handlebars+Events+Wiggle</title>
+    <style>
+        @keyframes wiggleAnimation {
+            0%  { transform: skewX(9deg); }
+            10% { transform: skewX(-8deg); }
+            20% { transform: skewX(7deg); }
+            30% { transform: skewX(-6deg); }
+            40% { transform: skewX(5deg); }
+            50% { transform: skewX(-4deg); }
+            60% { transform: skewX(3deg); }
+            70% { transform: skewX(-2deg); }
+            80% { transform: skewX(1deg); }
+            90% { transform: skewX(0deg); }
+            100% { transform: skewX(0deg); }
+        }
+        .wiggle {
+            animation-name: wiggleAnimation;
+            animation-duration: 1s;
+        }
+
+    </style>
+</head>
+<body>
+<h1>Songs</h1>
+<ul id="songs"></ul>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+<script id="songs-template" type="text/x-handlebars-template">
+    {{#each this}}
+    <li id="song-{{this.id}}">
+        <h3>{{this.rating}}
+            (<button onclick="rateSong({{this.id}}, 1)">+</button>
+             <button onclick="rateSong({{this.id}}, -1)">-</button>)
+            {{this.title}}
+        </h3>
+        <p>{{this.artist}}</p>
+    </li>
+    {{/each}}
+</script>
+<script>
+    var songs = [
+        {"id":"01", "title":"Thank you for the music", "artist":"ABBA", "rating":3},
+        {"id":"02", "title":"California Girls", "artist":"Beach Boys", "rating":2},
+        {"id":"03", "title":"How Deep Is Your Love", "artist":"Bee Gees", "rating":1},
+        {"id":"04", "title":"Sweet Sixteen", "artist":"Chuck Berry", "rating":0},
+        {"id":"05", "title":"Roll Over Beethoven", "artist":"Electric Light Orchestra", "rating":0},
+        {"id":"06", "title":"Booze and Blues", "artist":"Ma Rainey", "rating":0},
+        {"id":"07", "title":"Beds Are Burning", "artist":"Diesel and Dust", "rating":0}
+    ];
+    function compareSongs(s1, s2) {
+        return s1.rating < s2.rating;
+    }
+    function findSong(id) {
+        var foundSong;
+        songs.some(function (song) {
+            if (song.id == id) {
+                foundSong = song;
+                return true;
+            }
+        })
+        return foundSong;
+    }
+    function getSongIndex(id) {
+        //could be replaced with use of Array.prototype.some
+        for (var i = 0; i < songs.length; i++) {
+            if (songs[i].id == id) {
+                return i;
+            }
+        }
+        return -1;
+    }
+    function rateSong (songId, delta) {
+        var song = findSong(songId);
+        var songIndex = getSongIndex(songId);
+        song.rating += delta;
+        renderSongs();
+        // TODO if the position of the song in the list changed add wiggle to the classList of the correspinding li element
+    }
+    var createSongsHtml = Handlebars.compile(document.getElementById("songs-template").textContent);
+    function renderSongs () {
+        document.getElementById("songs").innerHTML=createSongsHtml(songs.sort(compareSongs));
+    }
+    window.onload = renderSongs;
+</script>
+</body>
+</html>

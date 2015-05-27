@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music list with Handlebars+JQuery+BubblingEvents</title>
+</head>
+<body>
+<h1>Songs</h1>
+<ul id="songs"></ul>
+
+<script src="https://code.jquery.com/jquery-2.1.3.min.js"></script>
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+<script id="songs-template" type="text/x-handlebars-template">
+    //TODO Add Content to Handlebars Template
+    //(loop over songs, for each song li, h3 (with rating, buttons - no event handler, title), p (with artist)
+</script>
+<script>
+    var songs = [
+        {"id":"01", "title":"Thank you for the music", "artist":"ABBA", "rating":3},
+        {"id":"02", "title":"California Girls", "artist":"Beach Boys", "rating":2},
+        {"id":"03", "title":"How Deep Is Your Love", "artist":"Bee Gees", "rating":1},
+        {"id":"04", "title":"Sweet Sixteen", "artist":"Chuck Berry", "rating":0},
+        {"id":"05", "title":"Roll Over Beethoven", "artist":"Electric Light Orchestra", "rating":0},
+        {"id":"06", "title":"Booze and Blues", "artist":"Ma Rainey", "rating":0},
+        {"id":"07", "title":"Beds Are Burning", "artist":"Diesel and Dust", "rating":0}
+    ];
+    function compareSongs(s1, s2) {
+        return s1.rating < s2.rating;
+    }
+    function findSong(id) {
+        for (var i = 0; i < songs.length; i++) {
+            if (songs[i].id == id) {
+                return songs[i];
+            }
+        }
+        return {};
+    }
+    function rateSong (songId, delta) {
+        var song = findSong(songId);
+        song.rating += delta;
+        renderSongs();
+    }
+    function bubbledClickEventHandler(event) {
+        //takes advantage of event bubbling
+        var buttonText = event.target.textContent;
+        var buttonSongId = event.target.getAttribute("data-songId");
+        if (buttonText == "+") {
+            rateSong(buttonSongId, 1);
+            return;
+        }
+        if (buttonText == "-") {
+            rateSong(buttonSongId, -1);
+            return;
+        }
+        console.log("unknown click target:"+buttonText);
+    }
+
+    // var createSongsHtml = ... TODO Compile Template
+
+    function renderSongs () {
+        // TODO use the compiled createSongsHtml function to add html to the <ul id="songs"> element
+    }
+    $(function() {
+        renderSongs();
+        $("#songs").on("click", bubbledClickEventHandler);
+    });
+</script>
+</body>
+</html>

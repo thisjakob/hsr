@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>JQuery Demo</title>
+    <script src="jquery-1.11.2.js" type="text/javascript"></script>
+    <script>
+        (function($, window, document) {
+            $(function() {
+                var clickCount = 0;
+                var text1 = $('#text1');
+                var text2 = $('#text2');
+                function buttonClickListenerE1 (event) {
+                    //Event interface is differnt with IE8 or older
+                    console.log('(buttonClickListenerE1) clicked button '+ event.target.id);
+                    clickCount++;
+                    this.value = "clicked "+clickCount+ " times";
+                    text2.value = text1.value;
+                }
+                $("#button1").on("click", buttonClickListenerE1);
+                function buttonClickListenerE2 (event) {
+                    console.log('(buttonClickListenerE2) clicked button ' + event.target.id);
+                }
+                $("#button1").on("click", buttonClickListenerE2); //double registration possible
+
+                function removeButton1ButtonClickListenerE2() {
+                    $("#button1").off("click", buttonClickListenerE2);
+                }
+                window.removeButton1ButtonClickListenerE2 = removeButton1ButtonClickListenerE2;
+
+                function bodyClickListener (event) {
+                    console.log('(bodyClickListener) clicked body this = '+this+" event target ="+event.target.id);
+                }
+                $("body").on("click", bodyClickListener);
+
+                function buttonClickListenerE3 (event) {
+                    //Event interface is differnt with IE8 or older
+                    console.log('(buttonClickListenerE3) clicked button '+ this.id );
+                }
+                $("#button2").on("click", buttonClickListenerE3);
+
+                function replaceTheButton2Text() {
+                    //document.getElementById('button2').childNodes[0].nodeValue = text1.value;
+                    $("#button2").text(text1.val());
+                }
+                window.replaceTheButton2Text = replaceTheButton2Text;
+
+                function removeTheText1Element() {
+                    //document.body.removeChild(text1);
+                    $('#text1').remove();
+                }
+                window.removeTheText1Element = removeTheText1Element;
+
+                function addNewText1Element() {
+                    /*
+                    var t1 = document.createElement('INPUT')
+                    t1.id = "text1";
+                    t1.value = "new text1";
+                    t1.addEventListener("focus", addNewText1Element)
+                    var emptyDiv = document.getElementById('emptyDiv');
+                    emptyDiv.appendChild(t1);
+                    */
+                    $('#emptyDiv').append($("<input id='text1' value='click for new text' />"));
+                }
+                window.addNewText1Element = addNewText1Element;
+                $('#emptyDiv').on("focus", "input",
+                        addNewText1Element);
+
+                window.theLifeGetElNodeListOfInputs = document.getElementsByTagName('input');
+
+                window.theQueryListOfInputs = document.querySelectorAll("input");
+
+                window.theJQueryListOfInputs = $("input");
+
+            });
+
+        }(window.jQuery, window, document));
+    </script>
+</head>
+<body>
+<h1>JQuery Demo</h1>
+text in body <em>with emphasized text</em> and more
+<p id="p1">paragraph <em>with emphasized text</em> and more</p>
+
+<input id="button1" type="button" value="Click Me" />
+<input id="text1" type="text" value="replace text" />
+<input id="text2" type="text" value="replace text" />
+<button id="button2" value="valueText">Click Me2</button>
+
+<div id="emptyDiv"></div>
+
+</body>
+</html>

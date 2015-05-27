@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music list with InnerHTML + Inline Events</title>
+</head>
+<body>
+
+<h1>Songs</h1>
+
+<ul id="songs"></ul>
+
+<script>
+    var songs = [
+        {"id":"01", "title":"Thank you for the music", "artist":"ABBA", "rating":3},
+        {"id":"02", "title":"California Girls", "artist":"Beach Boys", "rating":2},
+        {"id":"03", "title":"How Deep Is Your Love", "artist":"Bee Gees", "rating":1},
+        {"id":"04", "title":"Sweet Sixteen", "artist":"Chuck Berry", "rating":0},
+        {"id":"05", "title":"Roll Over Beethoven", "artist":"Electric Light Orchestra", "rating":0},
+        {"id":"06", "title":"Booze and Blues", "artist":"Ma Rainey", "rating":0},
+        {"id":"07", "title":"Beds Are Burning", "artist":"Diesel and Dust", "rating":0}
+    ];
+    function createSongsHtml (songs) {
+        var htmlString ="";
+        songs.forEach(function (song) {
+            htmlString += "<li><h3>";
+            htmlString += song.rating;
+            /*
+            TODO add a button "+" with a rateSongPlus called in the inline click handler and a corresponding "-" button
+            */
+            htmlString += song.title;
+            htmlString += "</h3><p>"
+            htmlString += song.artist;
+            htmlString += "</p></li>";
+        });
+        return htmlString;
+    }
+    function compareSongs(s1, s2) {
+        return s1.rating < s2.rating;
+    }
+    function findSong(id) {
+        for (var i = 0; i < songs.length; i++) {
+            if (songs[i].id == id) {
+                return songs[i];
+            }
+        }
+        return {};
+    }
+    function rateSongPlus (songId) {
+        /*
+        TODO
+        - use findSong to find the song
+        - increase song rating
+        - call renderSongs
+         */
+        var song = findSong(songId);
+        console.log("plus "+ song.id + "("+song.rating+")");
+        song.rating += 1;
+        renderSongs();
+    }
+    function rateSongMinus (songId) {
+        var song = findSong(songId);
+        console.log("minus "+ song.id + "("+song.rating+")");
+        song.rating -= 1;
+        renderSongs();
+    }
+    function renderSongs () {
+        /*
+        TODO sort the songs array (use the Array.prototype sort function and the compareSongs function)
+         */
+        document.getElementById("songs").innerHTML=createSongsHtml(songs);
+    }
+
+    window.onload = renderSongs;
+
+</script>
+</body>
+</html>

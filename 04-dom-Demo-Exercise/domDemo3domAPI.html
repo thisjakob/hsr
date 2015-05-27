@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>DOM API Demo</title>
+    <script>
+        window.onload = function () {
+            var clickCount = 0;
+            var text1 = document.getElementById('text1');
+            var text2 = document.getElementById('text2');
+            function buttonClickListenerE (event) {
+                //Event interface is different with IE8 or older
+                console.log('(buttonClickListener E) clicked button '+ event.target.name);
+                clickCount++;
+                this.value = "clicked "+clickCount+ " times";
+                text2.value = text1.value;
+            }
+            var button1 = document.querySelector("#button1");
+            button1.addEventListener("click", buttonClickListenerE);
+
+
+            function bodyClickListener (event) {
+                console.log('(bodyClickListener) clicked body this = '+this+" event target ="+event.target.id);
+            }
+            document.body.addEventListener("click", bodyClickListener);
+
+            function buttonClickListenerE2 (event) {
+                //Event interface is different with IE8 or older
+                console.log('(buttonClickListener E 2) clicked button '+ this.value );
+            }
+            var button2 = document.querySelector("#button2");
+            button2.addEventListener("click", buttonClickListenerE2);
+
+            function replaceTheButton2Text() {
+                document.getElementById('button2').childNodes[0].nodeValue = text1.value;
+            }
+            window.replaceTheButton2Text = replaceTheButton2Text;
+
+            function removeTheText1Element() {
+                document.body.removeChild(text1);
+            }
+            window.removeTheText1Element = removeTheText1Element;
+
+            function addNewText1Element() {
+                var t1 = document.createElement('INPUT');
+                t1.id = "text1";
+                t1.value = "new text1";
+                t1.addEventListener("focus", addNewText1Element)
+                var emptyDiv = document.getElementById('emptyDiv');
+                emptyDiv.appendChild(t1);
+            }
+            window.addNewText1Element = addNewText1Element;
+
+            window.theLifeGetElNodeListOfInputs = document.getElementsByTagName('input');
+
+            window.theQueryListOfInputs = document.querySelectorAll("input");
+        }
+    </script>
+</head>
+<body>
+<h1>DOM API Demo</h1>
+text in body <em>with emphasized text</em> and more
+<p id="p1">paragraph <em>with emphasized text</em> and more</p>
+
+<input id="button1" type="button" value="Click Me" />
+<input id="text1" type="text" value="replace text" />
+<input id="text2" type="text" value="replace text" />
+<button id="button2" value="valueText">Click Me2</button>
+
+<div id="emptyDiv"></div>
+
+</body>
+</html>

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music list with Handlebars+Events</title>
+</head>
+<body>
+<h1>Songs</h1>
+<ul id="songs"></ul>
+
+<script src="http://cdnjs.cloudflare.com/ajax/libs/handlebars.js/1.0.0/handlebars.min.js"></script>
+<script id="songs-template" type="text/x-handlebars-template">
+
+    //TODO Add Content to Handlebars Template
+    //(loop over songs, for each song li, h3 (with rating, buttons, title), p (with artist)
+
+</script>
+<script>
+    var songs = [
+        {"id":"01", "title":"Thank you for the music", "artist":"ABBA", "rating":3},
+        {"id":"02", "title":"California Girls", "artist":"Beach Boys", "rating":2},
+        {"id":"03", "title":"How Deep Is Your Love", "artist":"Bee Gees", "rating":1},
+        {"id":"04", "title":"Sweet Sixteen", "artist":"Chuck Berry", "rating":0},
+        {"id":"05", "title":"Roll Over Beethoven", "artist":"Electric Light Orchestra", "rating":0},
+        {"id":"06", "title":"Booze and Blues", "artist":"Ma Rainey", "rating":0},
+        {"id":"07", "title":"Beds Are Burning", "artist":"Diesel and Dust", "rating":0}
+    ];
+    function compareSongs(s1, s2) {
+        return s1.rating < s2.rating;
+    }
+    function findSong(id) {
+        for (var i = 0; i < songs.length; i++) {
+            if (songs[i].id == id) {
+                return songs[i];
+            }
+        }
+        return {};
+    }
+    function rateSong (songId, delta) {
+        var song = findSong(songId);
+        song.rating += delta;
+        renderSongs();
+    }
+
+    /*
+    var createSongsHtml = ... TODO compile Handlebars template
+    */
+    function renderSongs () {
+        /*
+        document.getElementById("songs").innerHTML= ... TODO use the createSongsHtml function;
+        */
+    }
+    window.onload = renderSongs;
+</script>
+</body>
+</html>

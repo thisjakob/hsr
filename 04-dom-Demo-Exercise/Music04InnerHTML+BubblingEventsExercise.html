@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Music list with InnerHTML + Bubbling Events</title>
+</head>
+<body>
+
+<h1>Songs</h1>
+
+<ul id="songs"></ul>
+
+<script>
+    var songs = [
+        {"id":"01", "title":"Thank you for the music", "artist":"ABBA", "rating":3},
+        {"id":"02", "title":"California Girls", "artist":"Beach Boys", "rating":2},
+        {"id":"03", "title":"How Deep Is Your Love", "artist":"Bee Gees", "rating":1},
+        {"id":"04", "title":"Sweet Sixteen", "artist":"Chuck Berry", "rating":0},
+        {"id":"05", "title":"Roll Over Beethoven", "artist":"Electric Light Orchestra", "rating":0},
+        {"id":"06", "title":"Booze and Blues", "artist":"Ma Rainey", "rating":0},
+        {"id":"07", "title":"Beds Are Burning", "artist":"Diesel and Dust", "rating":0}
+    ];
+    function createSongsHtml (songs) {
+        var htmlString ="";
+        songs.forEach(function (song) {
+            htmlString += "<li><h3>";
+            htmlString += song.rating;
+            /*
+            TODO add + and - button each with an attribute data-songId containing the songId
+            */
+            htmlString += song.title;
+            htmlString += "</h3><p>"
+            htmlString += song.artist;
+            htmlString += "</p></li>";
+        });
+        return htmlString;
+    }
+    function compareSongs(s1, s2) {
+        return s1.rating < s2.rating;
+    }
+    function findSong(id) {
+        for (var i = 0; i < songs.length; i++) {
+            if (songs[i].id == id) {
+                return songs[i];
+            }
+        }
+        return {};
+    }
+    function rateSong (songId, delta) {
+        var song = findSong(songId);
+        song.rating += delta;
+        renderSongs();
+    }
+    function bubbledClickEventHandler(event) {
+        //takes advantage of event bubbling
+        // TODO
+        // - get the button as the click-target from the event
+        // - read button text using textContent
+        // - get the value af the data-songId attribute from the button
+        // - based on button text call rateSong with the right parameters
+    }
+    function renderSongs () {
+        document.getElementById("songs").innerHTML=createSongsHtml(songs.sort(compareSongs));
+    }
+
+    window.onload = function() {
+        renderSongs();
+        // TODO register bubbledClickEventHandler with an element that receives all bubbled click events from the buttons
+    }
+</script>
+</body>
+</html>
